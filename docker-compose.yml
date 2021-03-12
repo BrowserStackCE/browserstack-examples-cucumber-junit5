@@ -1,0 +1,21 @@
+seleniumhub:
+  image: selenium/hub:latest
+  ports:
+    - 4444:4444
+  environment:
+    - GRID_MAX_SESSION=50
+
+firefoxnode:
+  image: selenium/node-firefox:latest
+  environment:
+    SCREEN_WIDTH: 2880
+    SCREEN_HEIGHT: 1800
+  links:
+    - seleniumhub:hub
+chromenode:
+  image: selenium/node-chrome:latest
+  environment:
+    SCREEN_WIDTH: 2880
+    SCREEN_HEIGHT: 1800
+  links:
+    - seleniumhub:hub
