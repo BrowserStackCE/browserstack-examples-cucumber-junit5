@@ -5,6 +5,9 @@ import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class OrderPageSteps {
 
@@ -16,6 +19,8 @@ public class OrderPageSteps {
 
     @Then("I should see elements in list")
     public void iShouldSeeElementsInList() {
+        WebDriverWait wait = new WebDriverWait(stepData.webDriver, 5);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#logout")));
         WebElement element = null;
         try {
             element = stepData.webDriver.findElement(By.cssSelector("#__next > main > div > div > h2"));

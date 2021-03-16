@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class OfferPageSteps {
 
@@ -16,6 +18,8 @@ public class OfferPageSteps {
 
     @Then("I should see Offer elements")
     public void iShouldSeeOfferElements() {
+        WebDriverWait wait = new WebDriverWait(stepData.webDriver, 5);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#logout")));
         try {
             WebElement element = stepData.webDriver.findElement(By.cssSelector(".pt-6"));
             Assertions.assertNotNull(element);

@@ -16,6 +16,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.FileReader;
 import java.net.URL;
@@ -107,7 +108,7 @@ public class SetupSteps {
             System.out.println(caps.toString());
             String URL = String.format("https://%s:%s@hub.browserstack.com/wd/hub", username, accessKey);
             stepData.webDriver = new RemoteWebDriver(new URL(URL), caps);
-            stepData.webDriver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+            stepData.webDriver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         }
     }
 

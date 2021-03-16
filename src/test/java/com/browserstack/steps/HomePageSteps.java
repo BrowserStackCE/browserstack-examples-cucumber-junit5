@@ -4,8 +4,15 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
+import org.openqa.selenium.ElementNotInteractableException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class HomePageSteps {
 
@@ -17,8 +24,9 @@ public class HomePageSteps {
 
     @And("I add two products to cart")
     public void iAddProductsToCart() throws InterruptedException {
-        stepData.webDriver.findElement(By.cssSelector("#\\31 > .shelf-item__buy-btn")).click();
-        stepData.webDriver.findElement(By.cssSelector("#__next > div > div > div.float-cart.float-cart--open > div.float-cart__close-btn")).click();
+        WebDriverWait wait = new WebDriverWait(stepData.webDriver, 5);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#\\31 > .shelf-item__buy-btn"))).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#__next > div > div > div.float-cart.float-cart--open > div.float-cart__close-btn"))).click();
         stepData.webDriver.findElement(By.cssSelector("#\\32 > .shelf-item__buy-btn")).click();
     }
 
@@ -40,8 +48,9 @@ public class HomePageSteps {
 
     @Then("I should see user {string} logged in")
     public void iShouldUserLoggedIn(String user) {
+        WebDriverWait wait = new WebDriverWait(stepData.webDriver,5);
         try {
-            String loggedInUser = stepData.webDriver.findElement(By.cssSelector(".username")).getText();
+            String loggedInUser = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".username"))).getText();
             Assertions.assertEquals(user, loggedInUser);
         } catch (NoSuchElementException e) {
             throw new AssertionError(user+" is not logged in");
@@ -50,8 +59,11 @@ public class HomePageSteps {
 
     @Then("I should see no image loaded")
     public void iShouldSeeNoImageLoaded() {
+        WebDriverWait wait = new WebDriverWait(stepData.webDriver,5);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("logout")));
+        String src = "";
         try {
-            String src = stepData.webDriver.findElement(By.xpath("//img[@alt='iPhone 12']")).getAttribute("src");
+            src = stepData.webDriver.findElement(By.xpath("//img[@alt='iPhone 12']")).getAttribute("src");
             Assertions.assertEquals("", src);
         } catch (NoSuchElementException e) {
             throw new AssertionError("Error in logging in");
@@ -60,9 +72,11 @@ public class HomePageSteps {
 
     @Then("I should see {int} items in the list")
     public void iShouldSeeItemsInTheList(int productCount) {
+        WebDriverWait wait = new WebDriverWait(stepData.webDriver,5);
         try{
-            String products = stepData.webDriver.findElement(By.cssSelector(".products-found > span")).getText();
-            Assertions.assertEquals(products,productCount+" Product(s) found.");
+            wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector(".spinner")));
+            List<String> values = stepData.webDriver.findElements(By.cssSelector(".shelf-item__title")).stream().map(WebElement::getText).collect(Collectors.toList());
+            Assertions.assertEquals(9,values.size());
         } catch (NoSuchElementException e) {
             throw new AssertionError("Error in page load");
         }

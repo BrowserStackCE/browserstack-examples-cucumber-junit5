@@ -6,6 +6,10 @@ import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class LoginPageSteps {
 
@@ -22,8 +26,9 @@ public class LoginPageSteps {
 
     @Then("I should see {string} as Login Error Message")
     public void iShouldSeeAsLoginErrorMessage(String expectedMessage) {
+        WebDriverWait wait = new WebDriverWait(stepData.webDriver, 5);
         try {
-            String errorMessage = stepData.webDriver.findElement(By.cssSelector(".api-error")).getText();
+            String errorMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".api-error"))).getText();
             Assertions.assertEquals(expectedMessage, errorMessage);
         } catch (NoSuchElementException e) {
             throw new AssertionError("Error in logging in");
@@ -32,8 +37,10 @@ public class LoginPageSteps {
 
     @And("I SignIn as {string} with {string} password")
     public void iSignInAsWithPassword(String username, String password) {
+        WebDriverWait wait = new WebDriverWait(stepData.webDriver, 5);
         stepData.webDriver.findElement(By.linkText("Sign In")).click();
-        stepData.webDriver.findElement(By.xpath("//*[@id=\"username\"]/div/div[1]")).click();
+        WebElement usernameInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"username\"]/div/div[1]")));
+        usernameInput.click();
         stepData.webDriver.findElement(By.id("react-select-2-input")).sendKeys(username);
         stepData.webDriver.findElement(By.id("react-select-2-input")).sendKeys(Keys.ENTER);
         stepData.webDriver.findElement(By.xpath("//*[@id=\"password\"]/div/div[1]")).click();
