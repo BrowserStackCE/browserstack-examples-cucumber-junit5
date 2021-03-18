@@ -18,7 +18,7 @@ dependencies {
     testImplementation("io.cucumber:cucumber-junit-platform-engine:latest.release")
     testImplementation("io.cucumber:cucumber-picocontainer:latest.release")
     testImplementation("org.seleniumhq.selenium:selenium-java:3.141.59")
-    testImplementation("com.com.browserstack:com.browserstack-local-java:1.0.6")
+    testImplementation("com.browserstack:browserstack-local-java:1.0.6")
     testImplementation("org.apache.commons:commons-lang3:3.11")
     testImplementation("com.googlecode.json-simple:json-simple:1.1.1")
 }

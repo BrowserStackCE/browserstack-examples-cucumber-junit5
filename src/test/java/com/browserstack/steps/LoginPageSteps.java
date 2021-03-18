@@ -6,8 +6,6 @@ import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -20,7 +18,7 @@ public class LoginPageSteps {
     }
 
     @And("I press Log In Button")
-    public void iPressLogin() throws InterruptedException {
+    public void iPressLogin() {
         stepData.webDriver.findElement(By.cssSelector(".Button_root__24MxS")).click();
     }
 
@@ -39,11 +37,10 @@ public class LoginPageSteps {
     public void iSignInAsWithPassword(String username, String password) {
         WebDriverWait wait = new WebDriverWait(stepData.webDriver, 5);
         stepData.webDriver.findElement(By.linkText("Sign In")).click();
-        WebElement usernameInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"username\"]/div/div[1]")));
-        usernameInput.click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#username > div > div:nth-child(1)"))).click();
         stepData.webDriver.findElement(By.id("react-select-2-input")).sendKeys(username);
         stepData.webDriver.findElement(By.id("react-select-2-input")).sendKeys(Keys.ENTER);
-        stepData.webDriver.findElement(By.xpath("//*[@id=\"password\"]/div/div[1]")).click();
+        stepData.webDriver.findElement(By.cssSelector("#password > div > div:nth-child(1)")).click();
         stepData.webDriver.findElement(By.id("react-select-3-input")).sendKeys(password);
         stepData.webDriver.findElement(By.id("react-select-3-input")).sendKeys(Keys.ENTER);
         stepData.webDriver.findElement(By.cssSelector(".Button_root__24MxS")).click();

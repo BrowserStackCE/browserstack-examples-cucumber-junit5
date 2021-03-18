@@ -1,1 +1,1 @@
-rootProject.name = "junit5-cucumber-com.browserstack"
+rootProject.name = "browserstack-examples-cucumber-junit5"

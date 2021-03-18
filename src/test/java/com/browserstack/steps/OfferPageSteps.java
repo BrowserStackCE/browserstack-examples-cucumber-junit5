@@ -24,7 +24,7 @@ public class OfferPageSteps {
             WebElement element = stepData.webDriver.findElement(By.cssSelector(".pt-6"));
             Assertions.assertNotNull(element);
         } catch (NoSuchElementException e) {
-            throw new AssertionError("There are no offers");
+            throw new AssertionError("There are no offers in your region.");
         }
     }
 

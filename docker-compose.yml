@@ -3,7 +3,7 @@ seleniumhub:
   ports:
     - 4444:4444
   environment:
-    - GRID_MAX_SESSION=50
+    - GRID_MAX_SESSION=5
 
 firefoxnode:
   image: selenium/node-firefox:latest

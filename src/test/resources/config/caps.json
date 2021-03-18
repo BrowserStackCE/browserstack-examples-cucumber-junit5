@@ -71,7 +71,11 @@
       "common_caps": {
         "project": "BrowserStack",
         "build": "Automate Demo",
-        "name": "Single Local Test: "
+        "name": "Single Local Test: ",
+        "browserstack.debug": "true",
+        "browserstack.networkLogs": "true",
+        "browserstack.console": "verbose",
+        "browserstack.local": true
       },
       "env_caps": [
         {

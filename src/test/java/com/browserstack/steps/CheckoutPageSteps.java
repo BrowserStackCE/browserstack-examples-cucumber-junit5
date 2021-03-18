@@ -19,7 +19,7 @@ public class CheckoutPageSteps {
     }
 
     @And("I click on Checkout Button")
-    public void iClickOnCheckoutButton() throws InterruptedException {
+    public void iClickOnCheckoutButton() {
         stepData.webDriver.findElement(By.id("checkout-shipping-continue")).click();
         WebDriverWait wait = new WebDriverWait(stepData.webDriver, 5);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#checkout-app > div > div > div > div > a > button"))).click();
