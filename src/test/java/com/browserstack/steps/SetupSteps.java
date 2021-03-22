@@ -13,7 +13,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.remote.CapabilityType;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.slf4j.Logger;
@@ -66,9 +66,8 @@ public class SetupSteps {
             stepData.webDriver = new ChromeDriver();
             stepData.url = URL;
         } else if (StringUtils.isNoneEmpty(System.getProperty("env")) && System.getProperty("env").equalsIgnoreCase("docker")) {
-            caps.setBrowserName("firefox");
-            caps.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
-            stepData.webDriver = new RemoteWebDriver(new URL(DOCKER_SELENIUM_HUB_URL), caps);
+            DesiredCapabilities dockerCaps = new DesiredCapabilities(new FirefoxOptions());
+            stepData.webDriver = new RemoteWebDriver(new URL(DOCKER_SELENIUM_HUB_URL), dockerCaps);
             stepData.url = URL;
         } else {
             if (System.getenv("caps") != null) {
