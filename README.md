@@ -106,7 +106,7 @@ Note: The ChromeDriver version must match the Chrome browser version on your mac
 
   Maven:
     ```sh
-  mvn install -P on-prem
+  mvn test -P on-prem
   ```
 
   Gradle:
@@ -118,7 +118,7 @@ Note: The ChromeDriver version must match the Chrome browser version on your mac
 
   Maven:
   ```sh
-  mvn install -P on-prem -Dtest-name="<Test scenario name>"
+  mvn test -P on-prem -Dtest-name="<Test scenario name>"
   ```
 
   Gradle:
@@ -143,7 +143,7 @@ Note: The ChromeDriver version must match the Chrome browser version on your mac
 
   Maven:
   ```sh
-  mvn install -P on-prem-suite
+  mvn test -P on-prem-suite
   ```
 
   Gradle:
@@ -184,7 +184,7 @@ Note: The ChromeDriver version must match the Chrome browser version on your mac
 
   Maven:
   ```sh
-  mvn install -P docker
+  mvn test -P docker
   ```
 
   Gradle:
@@ -196,7 +196,7 @@ Note: The ChromeDriver version must match the Chrome browser version on your mac
 
   Maven:
   ```sh
-  mvn install -P docker -Dtest-name="<Test scenario name>"
+  mvn test -P docker -Dtest-name="<Test scenario name>"
   ```
 
   Gradle:
@@ -309,7 +309,7 @@ In this section, we will run a single test on Chrome browser on Browserstack. To
   To run a specific test scenario, use the following command with the additional 'test-name' argument:
   Maven:
   ```sh
-  mvn install -P bstack-single -Dtest-name="<Test scenario name>"
+  mvn test -P bstack-single -Dtest-name="<Test scenario name>"
   ```
 
   Gradle:
@@ -337,7 +337,7 @@ In this section, we will run the tests in parallel on a single browser on Browse
 
   Maven:
   ```sh
-  mvn install -P bstack-parallel
+  mvn test -P bstack-parallel
   ```
   Gradle:
     ```sh
@@ -406,7 +406,7 @@ In this section, we will run the tests in parallel on multiple browsers on Brows
   To run a specific test scenario, use the following command with the additional test-name argument:
   Maven:
   ```sh
-  mvn install -P bstack-local -Dtest-name="<Test scenario name>"
+  mvn test -P bstack-local -Dtest-name="<Test scenario name>"
   ```
 
   Gradle:
@@ -433,7 +433,7 @@ In this section, we will run the test cases to test the internally hosted websit
   To run the entire test suite in parallel on a single BrowserStack browser using BrowserStackLocal, use the following command:
   Maven:
   ```sh
-  mvn install -P bstack-local-parallel
+  mvn test -P bstack-local-parallel
   ```
 
   Gradle:
