@@ -31,6 +31,7 @@ tasks.test{
 }
 
 tasks.register<Test>("on-prem"){
+    dependsOn(":clean")
     ignoreFailures = true
     systemProperties(System.getProperties().toMap() as Map<String, Object>)
     systemProperty("env", "on-prem")
@@ -47,6 +48,7 @@ tasks.register<Test>("on-prem"){
 }
 
 tasks.register<Test>("on-prem-suite"){
+    dependsOn(":clean")
     ignoreFailures = true
     systemProperties(System.getProperties().toMap() as Map<String, Object>)
     systemProperty("env", "on-prem")
@@ -58,6 +60,7 @@ tasks.register<Test>("on-prem-suite"){
 }
 
 tasks.register<Test>("docker"){
+    dependsOn(":clean")
     ignoreFailures = true
     systemProperties(System.getProperties().toMap() as Map<String, Object>)
     systemProperty("env", "docker")
@@ -74,6 +77,7 @@ tasks.register<Test>("docker"){
 }
 
 tasks.register<Test>("docker-parallel"){
+    dependsOn(":clean")
     ignoreFailures = true
     systemProperties(System.getProperties().toMap() as Map<String, Object>)
     systemProperty("env", "docker")
@@ -88,6 +92,7 @@ tasks.register<Test>("docker-parallel"){
 }
 
 tasks.register<Test>("bstack-single"){
+    dependsOn(":clean")
     ignoreFailures = true
     systemProperties(System.getProperties().toMap() as Map<String, Object>)
     systemProperty("env", "remote")
@@ -105,6 +110,7 @@ tasks.register<Test>("bstack-single"){
 }
 
 tasks.register<Test>("bstack-parallel"){
+    dependsOn(":clean")
     ignoreFailures = true
     systemProperties(System.getProperties().toMap() as Map<String, Object>)
     systemProperty("env", "remote")
@@ -120,6 +126,7 @@ tasks.register<Test>("bstack-parallel"){
 }
 
 tasks.register("bstack-parallel-browsers", JavaExec::class) {
+    dependsOn(":clean")
     group = "local"
     main = "com.browserstack.ParallelTest"
     classpath = sourceSets["test"].runtimeClasspath
@@ -130,6 +137,7 @@ tasks.register("bstack-parallel-browsers", JavaExec::class) {
 }
 
 tasks.register<Test>("bstack-local"){
+    dependsOn(":clean")
     ignoreFailures = true
     systemProperties(System.getProperties().toMap() as Map<String, Object>)
     systemProperty("env", "remote")
@@ -147,6 +155,7 @@ tasks.register<Test>("bstack-local"){
 }
 
 tasks.register<Test>("bstack-local-parallel"){
+    dependsOn(":clean")
     ignoreFailures = true
     systemProperties(System.getProperties().toMap() as Map<String, Object>)
     systemProperty("env", "remote")
@@ -162,6 +171,7 @@ tasks.register<Test>("bstack-local-parallel"){
 }
 
 tasks.register("bstack-local-parallel-browsers", JavaExec::class) {
+    dependsOn(":clean")
     group = "local"
     main = "com.browserstack.ParallelTest"
     classpath = sourceSets["test"].runtimeClasspath
@@ -172,6 +182,7 @@ tasks.register("bstack-local-parallel-browsers", JavaExec::class) {
 }
 
 tasks.register("mobile", JavaExec::class) {
+    dependsOn(":clean")
     group = "local"
     main = "com.browserstack.ParallelTest"
     classpath = sourceSets["test"].runtimeClasspath
