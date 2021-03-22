@@ -1,6 +1,6 @@
 Feature: Login Feature
 
-  Scenario Outline: Login as username
+  Scenario Outline: Login with given username
     Given I navigate to website
     And I click on "Sign In" link
     And I type <username> in "username"

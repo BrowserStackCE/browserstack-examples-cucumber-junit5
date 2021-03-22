@@ -1,6 +1,6 @@
 Feature: Offers Feature
 
-  Scenario: Offers for mumbai geo-location
+  Scenario: Offers for Mumbai location
     Given I navigate to website
     And I SignIn as "fav_user" with "testingisfun99" password
     And I click on "Offers" link

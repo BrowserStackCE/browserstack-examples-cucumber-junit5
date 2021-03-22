@@ -6,9 +6,9 @@
 
 JUnit 5 is the next generation of JUnit. The goal of JUnit 5 is to create an up-to-date foundation for developer-side testing on the JVM. Cucumber is a software tool that supports behavior-driven development (BDD).
 
-This BrowserStack Example repository demonstrates a #{ Selenium test / Cypress / Puppeteer / Other } framework written in Cucumber and Junit 5 with parallel testing capabilities. The #{ Selenium test / Cypress / Puppeteer / Other } test scripts are written for the open source [BrowserStack Demo web application](https://bstackdemo.com) ([Github](https://github.com/browserstack/browserstack-demo-app)). This BrowserStack Demo App is an e-commerce web application which showcases multiple real-world user scenarios. The app is bundled with offers data, orders data and products data that contains everything you need to start using the app and run tests out-of-the-box.
+This BrowserStack Example repository demonstrates a Selenium test framework written in Cucumber and Junit 5 with parallel testing capabilities. The Selenium test scripts are written for the open source [BrowserStack Demo web application](https://bstackdemo.com) ([Github](https://github.com/browserstack/browserstack-demo-app)). This BrowserStack Demo App is an e-commerce web application which showcases multiple real-world user scenarios. The app is bundled with offers data, orders data and products data that contains everything you need to start using the app and run tests out-of-the-box.
 
-The #{ Selenium test / Cypress / Puppeteer / Other } tests are run on different platforms like on-prem, docker and BrowserStack using various run configurations and test capabilities.
+The Selenium test tests are run on different platforms like on-prem, docker and BrowserStack using various run configurations and test capabilities.
 
 ---
 
@@ -33,7 +33,7 @@ The #{ Selenium test / Cypress / Puppeteer / Other } tests are run on different 
 
 ## About the tests in this repository
 
-This repository contains the following #{ Selenium test / Cypress / Puppeteer / Other } tests:
+This repository contains the following Selenium tests:
 
 | Module   | Test name                          | Description |
   | ---   | ---                                   | --- |
@@ -88,7 +88,7 @@ For all the parallel run configuration profiles, you can configure the maximum p
 
 # On Premise / Self Hosted
 
-This infrastructure points to running the tests on your own machine using a browser (e.g. Chrome) using the browser's driver executables (e.g. ChromeDriver for Chrome). #{ Selenium enables this functionality using WebDriver for many popular browsers.}
+This infrastructure points to running the tests on your own machine using a browser (e.g. Chrome) using the browser's driver executables (e.g. ChromeDriver for Chrome). Selenium enables this functionality using WebDriver for many popular browsers.
 
 ## Prerequisites
 
@@ -481,7 +481,7 @@ In this section, we will run the test cases to test the internally hosted websit
 - View your test results on the [BrowserStack Automate dashboard](https://www.browserstack.com/automate)
 - Documentation for writing [Automate test scripts in Java](https://www.browserstack.com/automate/java)
 - Customizing your tests capabilities on BrowserStack using our [test capability generator](https://www.browserstack.com/automate/capabilities)
-- [List of Browsers & mobile devices](https://www.browserstack.com/list-of-browsers-and-platforms?product=automate) for automation testing on BrowserStack #{ Replace link for non-Selenium frameworks. }
+- [List of Browsers & mobile devices](https://www.browserstack.com/list-of-browsers-and-platforms?product=automate) for automation testing on BrowserStack
 - [Using Automate REST API](https://www.browserstack.com/automate/rest-api) to access information about your tests via the command-line interface
 - Understand how many parallel sessions you need by using our [Parallel Test Calculator](https://www.browserstack.com/automate/parallel-calculator?ref=github)
 - For testing public web applications behind IP restriction, [Inbound IP Whitelisting](https://www.browserstack.com/local-testing/inbound-ip-whitelisting) can be enabled with the [BrowserStack Enterprise](https://www.browserstack.com/enterprise) offering
