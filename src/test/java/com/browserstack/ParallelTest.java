@@ -34,10 +34,10 @@ public class ParallelTest {
             testSelectedConfig = (JSONObject) ((JSONObject) testConfigs.get("tests")).get("parallel");
         }
         JSONArray environments = (JSONArray) testSelectedConfig.get("env_caps");
-        log.debug("Selected Test Config : "+testSelectedConfig.toJSONString());
+        log.debug("Selected Test Config : " + testSelectedConfig.toJSONString());
         for (Object obj : environments) {
             JSONObject singleConfig = Utility.getCombinedCapability((Map<String, String>) obj, testConfigs, testSelectedConfig);
-            log.debug("Single Test Config : "+singleConfig.toJSONString());
+            log.debug("Single Test Config : " + singleConfig.toJSONString());
             Thread thread = new Thread(() -> {
                 System.setProperty("parallel", "true");
                 threadLocalValue.set(singleConfig);

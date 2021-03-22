@@ -37,7 +37,10 @@ public class SetupSteps {
     private static final String URL = "https://bstackdemo.com";
     private static final String WEBDRIVER_CHROME_DRIVER = "webdriver.chrome.driver";
     private static final String DOCKER_SELENIUM_HUB_URL = "http://localhost:4444/wd/hub";
+    private static final String BROWSERSTACK_HUB_URL = "https://hub.browserstack.com/wd/hub";
     private static final String CAPABILITY_CONFIG_FILE = "src/test/resources/config/caps.json";
+    private static final String REPO_NAME = "browserstack-examples-cucumber-junit5 - ";
+
     public static Logger log = LoggerFactory.getLogger(SetupSteps.class);
 
     public SetupSteps(StepData stepData) {
@@ -63,7 +66,7 @@ public class SetupSteps {
             stepData.webDriver = new ChromeDriver();
             stepData.url = URL;
         } else if (StringUtils.isNoneEmpty(System.getProperty("env")) && System.getProperty("env").equalsIgnoreCase("docker")) {
-            caps.setBrowserName("chrome");
+            caps.setBrowserName("firefox");
             caps.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
             stepData.webDriver = new RemoteWebDriver(new URL(DOCKER_SELENIUM_HUB_URL), caps);
             stepData.url = URL;
@@ -89,7 +92,13 @@ public class SetupSteps {
                     caps.setCapability(pair.getKey().toString(), pair.getValue().toString());
                 }
             }
+
             caps.setCapability("name", scenario.getName());
+//            String buildName = System.getenv("BROWSERSTACK_BUILD_NAME");
+//            if (buildName == null) {
+//                buildName = String.valueOf(Instant.now().toEpochMilli());
+//            }
+//            caps.setCapability("build", REPO_NAME + buildName);
 
             String username = System.getenv("BROWSERSTACK_USERNAME");
             if (username == null) {
@@ -100,6 +109,8 @@ public class SetupSteps {
                 accessKey = (String) testSelectedConfig.get("key");
             }
             stepData.url = (String) testSelectedConfig.get("application_endpoint");
+            caps.setCapability("browserstack.user", username);
+            caps.setCapability("browserstack.key", accessKey);
             if (caps.getCapability("browserstack.local") != null && caps.getCapability("browserstack.local").equals("true")) {
                 String localIdentifier = RandomStringUtils.randomAlphabetic(8);
                 caps.setCapability("browserstack.localIdentifier", localIdentifier);
@@ -109,10 +120,12 @@ public class SetupSteps {
                 options.put("localIdentifier", localIdentifier);
                 bstackLocal.start(options);
             }
-            log.debug("Desired Capability : "+caps.toString());
-            String URL = String.format("https://%s:%s@hub.browserstack.com/wd/hub", username, accessKey);
-            stepData.webDriver = new RemoteWebDriver(new URL(URL), caps);
+            log.debug("Desired Capability : " + caps.toString());
+            stepData.webDriver = new RemoteWebDriver(new URL(BROWSERSTACK_HUB_URL), caps);
             stepData.webDriver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+            if (!caps.getCapabilityNames().contains("device")) {
+                stepData.webDriver.manage().window().maximize();
+            }
         }
     }
 

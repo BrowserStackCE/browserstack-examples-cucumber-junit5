@@ -6,8 +6,7 @@
     "parallel": {
       "common_caps": {
         "project": "BrowserStack Demo",
-        "build": "Automate Demo",
-        "name": "Parallel Test: ",
+        "build": "Automate Parallel Browser Demo",
         "browserstack.debug": "true",
         "browserstack.networkLogs": "true",
         "browserstack.console": "verbose"
@@ -53,8 +52,8 @@
     },
     "single": {
       "common_caps": {
-        "project": "BrowserStack",
-        "build": "Automate Demo",
+        "project": "BrowserStack Demo",
+        "build": "Automate Single Browser Demo",
         "name": "Single Test: "
       },
       "env_caps": [
@@ -69,8 +68,8 @@
       "application_env": "dev",
       "application_endpoint": "http://bs-local.com:3000/",
       "common_caps": {
-        "project": "BrowserStack",
-        "build": "Automate Demo",
+        "project": "BrowserStack Demo",
+        "build": "Automate Single Browser Local Demo",
         "name": "Single Local Test: ",
         "browserstack.debug": "true",
         "browserstack.networkLogs": "true",
@@ -96,7 +95,7 @@
       "application_endpoint": "http://bs-local.com:3000/",
       "common_caps": {
         "project": "BrowserStack Demo",
-        "build": "Automate Demo",
+        "build": "Automate Parallel Browsers Local Demo",
         "name": "Parallel Test: ",
         "browserstack.debug": "true",
         "browserstack.networkLogs": "true",
@@ -150,8 +149,8 @@
     },
     "mobile": {
       "common_caps": {
-        "project": "BrowserStack",
-        "build": "Automate Demo",
+        "project": "BrowserStack Demo",
+        "build": "Automate Parallel Mobile Demo",
         "name": "Mobile Parallel Test"
       },
       "env_caps": [

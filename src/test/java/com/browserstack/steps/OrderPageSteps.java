@@ -8,6 +8,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.List;
+
 public class OrderPageSteps {
 
     private final StepData stepData;
@@ -22,10 +24,11 @@ public class OrderPageSteps {
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#logout")));
         WebElement element = null;
         try {
-            element = stepData.webDriver.findElement(By.cssSelector("#__next > main > div > div > h2"));
-            throw new AssertionError("There are no orders");
+            element = stepData.webDriver.findElement(By.cssSelector("#__next > main > div > div"));
+            List<WebElement> orders = element.findElements(By.tagName("div"));
+            Assertions.assertNotEquals(0, orders.size());
         } catch (NoSuchElementException e) {
-            Assertions.assertNull(element);
+            throw new AssertionError("There are no orders");
         }
     }
 
