@@ -434,6 +434,7 @@
                         <configuration>
                             <classpathScope>test</classpathScope>
                             <mainClass>com.browserstack.ParallelTest</mainClass>
+                            <cleanupDaemonThreads>false</cleanupDaemonThreads>
                             <systemProperties>
                                 <property>
                                     <key>cucumber.publish.quiet</key>
@@ -580,6 +581,7 @@
                         <configuration>
                             <classpathScope>test</classpathScope>
                             <mainClass>com.browserstack.ParallelTest</mainClass>
+                            <cleanupDaemonThreads>false</cleanupDaemonThreads>
                             <systemProperties>
                                 <property>
                                     <key>cucumber.publish.quiet</key>
@@ -614,6 +616,7 @@
                         <configuration>
                             <classpathScope>test</classpathScope>
                             <mainClass>com.browserstack.ParallelTest</mainClass>
+                            <cleanupDaemonThreads>false</cleanupDaemonThreads>
                             <systemProperties>
                                 <property>
                                     <key>cucumber.publish.quiet</key>
