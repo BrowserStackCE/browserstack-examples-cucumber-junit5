@@ -486,9 +486,12 @@ In this section, we will run the test cases to test the internally hosted websit
 - Understand how many parallel sessions you need by using our [Parallel Test Calculator](https://www.browserstack.com/automate/parallel-calculator?ref=github)
 - For testing public web applications behind IP restriction, [Inbound IP Whitelisting](https://www.browserstack.com/local-testing/inbound-ip-whitelisting) can be enabled with the [BrowserStack Enterprise](https://www.browserstack.com/enterprise) offering
 
-[comment]: <> (## Observations)
-
-[comment]: <> (<Placeholder section for any other technical or general observations specific to the repository. If none, please remove the section>)
+## Observations
+- To run Cucumber with Junit 5, cucumber-junit-platform-engine library is used and @Cucumber annotation has to be used to mark Junit 5 Tests.
+- To add cucumber specific configurations, properties can be used. Reference: [Configuration Options](https://github.com/cucumber/cucumber-jvm/tree/main/junit-platform-engine#configuration-options)
+- To run Cucumber tests scenarios in parallel, `cucumber.execution.parallel.enabled` should be set to `true`. To restrict the number of parallels being used, `cucumber.execution.parallel.config.fixed.parallelism` should be set to a positive integer value.
+- Running tests in parallel on multiple browsers is not supported by the Cucumber. So, a [custom implementation](src/test/java/com/browserstack/ParallelTest.java) is done as a workaround.
+- [Cucumber with Junit 5 does not support BeforeAll and AfterAll hooks.](https://github.com/cucumber/cucumber-jvm/issues/515)
 
 [comment]: <> (## Open Issues)
 
