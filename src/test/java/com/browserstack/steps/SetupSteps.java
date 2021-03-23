@@ -13,7 +13,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.slf4j.Logger;
@@ -66,7 +66,7 @@ public class SetupSteps {
             stepData.webDriver = new ChromeDriver();
             stepData.url = URL;
         } else if (StringUtils.isNoneEmpty(System.getProperty("env")) && System.getProperty("env").equalsIgnoreCase("docker")) {
-            DesiredCapabilities dockerCaps = new DesiredCapabilities(new FirefoxOptions());
+            DesiredCapabilities dockerCaps = new DesiredCapabilities(new ChromeOptions());
             stepData.webDriver = new RemoteWebDriver(new URL(DOCKER_SELENIUM_HUB_URL), dockerCaps);
             stepData.url = URL;
         } else {
@@ -119,10 +119,9 @@ public class SetupSteps {
                 options.put("localIdentifier", localIdentifier);
                 bstackLocal.start(options);
             }
-            log.debug("Desired Capability : " + caps.toString());
             stepData.webDriver = new RemoteWebDriver(new URL(BROWSERSTACK_HUB_URL), caps);
             stepData.webDriver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-            if (!caps.getCapabilityNames().contains("device")) {
+            if (!caps.is("device")) {
                 stepData.webDriver.manage().window().maximize();
             }
         }
