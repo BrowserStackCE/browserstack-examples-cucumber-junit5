@@ -121,7 +121,7 @@ public class SetupSteps {
             }
             stepData.webDriver = new RemoteWebDriver(new URL(BROWSERSTACK_HUB_URL), caps);
             stepData.webDriver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-            if (!caps.is("device")) {
+            if (!caps.getCapabilityNames().contains("device")) {
                 stepData.webDriver.manage().window().maximize();
             }
         }
