@@ -71,11 +71,11 @@ public class HomePageSteps {
 
     @Then("I should see {int} items in the list")
     public void iShouldSeeItemsInTheList(int productCount) {
-        WebDriverWait wait = new WebDriverWait(stepData.webDriver, 5);
         try {
-            wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector(".spinner")));
+            WebDriverWait webDriverWait = new WebDriverWait(stepData.webDriver, 5);
+            webDriverWait.until(waitWebDriver -> waitWebDriver.findElements(By.cssSelector(".spinner")).isEmpty());
             List<String> values = stepData.webDriver.findElements(By.cssSelector(".shelf-item__title")).stream().map(WebElement::getText).collect(Collectors.toList());
-            Assertions.assertEquals(9, values.size());
+            Assertions.assertEquals(productCount, values.size());
         } catch (NoSuchElementException e) {
             throw new AssertionError("Error in page load");
         }
@@ -83,7 +83,10 @@ public class HomePageSteps {
 
     @Then("I should see prices in ascending order")
     public void iShouldSeePricesInAscendingOrder() {
+        WebDriverWait wait = new WebDriverWait(stepData.webDriver, 5);
         try {
+            WebDriverWait webDriverWait = new WebDriverWait(stepData.webDriver, 5);
+            webDriverWait.until(waitWebDriver -> waitWebDriver.findElements(By.cssSelector(".spinner")).isEmpty());
             List<WebElement> priceWebElement = stepData.webDriver.findElements(By.cssSelector(".shelf-item__price > div.val > b"));
             Assertions.assertTrue(Utility.isAscendingOrder(priceWebElement, priceWebElement.size()));
         } catch (NoSuchElementException e) {
