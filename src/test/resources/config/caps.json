@@ -54,7 +54,10 @@
       "common_caps": {
         "project": "BrowserStack Demo",
         "build": "Automate Single Browser Demo",
-        "name": "Single Test: "
+        "name": "Single Test: ",
+        "browserstack.debug": "true",
+        "browserstack.networkLogs": "true",
+        "browserstack.console": "verbose"
       },
       "env_caps": [
         {
@@ -151,7 +154,10 @@
       "common_caps": {
         "project": "BrowserStack Demo",
         "build": "Automate Parallel Mobile Demo",
-        "name": "Mobile Parallel Test"
+        "name": "Mobile Parallel Test",
+        "browserstack.debug": "true",
+        "browserstack.networkLogs": "true",
+        "browserstack.console": "verbose"
       },
       "env_caps": [
         {
