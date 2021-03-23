@@ -1,5 +1,6 @@
 package com.browserstack.steps;
 
+import com.browserstack.util.Utility;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import org.junit.jupiter.api.Assertions;
@@ -44,5 +45,6 @@ public class LoginPageSteps {
         stepData.webDriver.findElement(By.id("react-select-3-input")).sendKeys(password);
         stepData.webDriver.findElement(By.id("react-select-3-input")).sendKeys(Keys.ENTER);
         stepData.webDriver.findElement(By.cssSelector(".Button_root__24MxS")).click();
+        Utility.mockGPS(stepData.webDriver);
     }
 }

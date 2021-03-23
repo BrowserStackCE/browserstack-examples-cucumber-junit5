@@ -16,8 +16,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.FileReader;
 import java.net.URL;
@@ -40,8 +38,6 @@ public class SetupSteps {
     private static final String BROWSERSTACK_HUB_URL = "https://hub.browserstack.com/wd/hub";
     private static final String CAPABILITY_CONFIG_FILE = "src/test/resources/config/caps.json";
     private static final String REPO_NAME = "browserstack-examples-cucumber-junit5 - ";
-
-    public static Logger log = LoggerFactory.getLogger(SetupSteps.class);
 
     public SetupSteps(StepData stepData) {
         this.stepData = stepData;
@@ -67,6 +63,7 @@ public class SetupSteps {
             stepData.url = URL;
         } else if (StringUtils.isNoneEmpty(System.getProperty("env")) && System.getProperty("env").equalsIgnoreCase("docker")) {
             DesiredCapabilities dockerCaps = new DesiredCapabilities(new ChromeOptions());
+            Utility.setLocationSpecificCapabilities(dockerCaps);
             stepData.webDriver = new RemoteWebDriver(new URL(DOCKER_SELENIUM_HUB_URL), dockerCaps);
             stepData.url = URL;
         } else {
@@ -119,6 +116,7 @@ public class SetupSteps {
                 options.put("localIdentifier", localIdentifier);
                 bstackLocal.start(options);
             }
+            Utility.setLocationSpecificCapabilities(caps);
             stepData.webDriver = new RemoteWebDriver(new URL(BROWSERSTACK_HUB_URL), caps);
             stepData.webDriver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
             if (!caps.getCapabilityNames().contains("device")) {

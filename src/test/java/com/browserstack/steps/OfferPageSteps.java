@@ -19,9 +19,9 @@ public class OfferPageSteps {
     @Then("I should see Offer elements")
     public void iShouldSeeOfferElements() {
         WebDriverWait wait = new WebDriverWait(stepData.webDriver, 5);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#logout")));
+        wait.until(ExpectedConditions.urlContains("offers"));
         try {
-            WebElement element = stepData.webDriver.findElement(By.cssSelector(".pt-6"));
+            WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".p-6")));
             Assertions.assertNotNull(element);
         } catch (NoSuchElementException e) {
             throw new AssertionError("There are no offers in your region.");
