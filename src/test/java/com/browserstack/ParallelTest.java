@@ -2,6 +2,7 @@ package com.browserstack;
 
 import com.browserstack.util.Utility;
 import io.cucumber.core.cli.Main;
+import org.apache.commons.lang3.StringUtils;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -12,16 +13,17 @@ import org.slf4j.LoggerFactory;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class ParallelTest {
 
     public static ThreadLocal<JSONObject> threadLocalValue = new ThreadLocal<>();
 
-    public static Logger log = LoggerFactory.getLogger(ParallelTest.class);
-
     public static void main(String[] args) throws IOException, ParseException {
         JSONObject testConfigs;
         JSONObject testSelectedConfig;
+        int threadCount = 5;
         JSONParser parser = new JSONParser();
         if (System.getenv("caps") != null) {
             testConfigs = (JSONObject) parser.parse(System.getenv("caps"));
@@ -34,25 +36,42 @@ public class ParallelTest {
             testSelectedConfig = (JSONObject) ((JSONObject) testConfigs.get("tests")).get("parallel");
         }
         JSONArray environments = (JSONArray) testSelectedConfig.get("env_caps");
-        log.debug("Selected Test Config : " + testSelectedConfig.toJSONString());
+        if (StringUtils.isNoneEmpty(System.getProperty("parallel-count")) && StringUtils.isNumeric(System.getProperty("parallel-count"))) {
+            threadCount = Integer.parseInt(System.getProperty("parallel-count"));
+        }
+        ExecutorService pool = Executors.newFixedThreadPool(threadCount);
         for (Object obj : environments) {
             JSONObject singleConfig = Utility.getCombinedCapability((Map<String, String>) obj, testConfigs, testSelectedConfig);
-            log.debug("Single Test Config : " + singleConfig.toJSONString());
-            Thread thread = new Thread(() -> {
-                System.setProperty("parallel", "true");
-                threadLocalValue.set(singleConfig);
-                try {
-                    String[] argv = new String[]{"-g", "", "src/test/resources/com/browserstack"};
-                    ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
-                    Main.run(argv, contextClassLoader);
-                } catch (Exception e) {
-                    e.getStackTrace();
-                } finally {
-                    threadLocalValue.remove();
-                }
-            });
-            thread.start();
+            Runnable task = new Task(singleConfig, threadLocalValue);
+            pool.execute(task);
         }
+        pool.shutdown();
     }
 
+}
+
+class Task implements Runnable {
+    private JSONObject singleConfig;
+    private ThreadLocal<JSONObject> threadLocalValue;
+
+    public static Logger log = LoggerFactory.getLogger(ParallelTest.class);
+
+    public Task(JSONObject singleConfig, ThreadLocal<JSONObject> threadLocalValue) {
+        this.singleConfig = singleConfig;
+        this.threadLocalValue = threadLocalValue;
+    }
+
+    public void run() {
+        System.setProperty("parallel", "true");
+        threadLocalValue.set(singleConfig);
+        try {
+            String[] argv = new String[]{"-g", "", "src/test/resources/com/browserstack"};
+            ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
+            Main.run(argv, contextClassLoader);
+        } catch (Exception e) {
+            log.error("Error with parallel test", e);
+        } finally {
+            threadLocalValue.remove();
+        }
+    }
 }

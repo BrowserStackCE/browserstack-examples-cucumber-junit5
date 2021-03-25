@@ -9,6 +9,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
+import java.time.Instant;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -26,6 +27,20 @@ public class Utility {
             "}";
     private static final String OFFER_LATITUDE = "19";
     private static final String OFFER_LONGITUDE = "72";
+
+    private static Object SYNCHRONIZER = new Object();
+    private static String epochTime = null;
+
+    public static String getEpochTime() {
+        if (epochTime == null) {
+            synchronized (SYNCHRONIZER) {
+                if (epochTime == null) {
+                    epochTime = String.valueOf(Instant.now().toEpochMilli());
+                }
+            }
+        }
+        return epochTime;
+    }
 
     public static Map<String, String> getLocalOptions(JSONObject config) {
         Map<String, String> localOptions = new HashMap<>();

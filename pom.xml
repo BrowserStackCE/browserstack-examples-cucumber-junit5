@@ -9,8 +9,8 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
         <junit-jupiter.version>5.7.0</junit-jupiter.version>
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
         <cucumber.version>6.9.1</cucumber.version>
@@ -21,6 +21,7 @@
         <json-simple.version>1.1.1</json-simple.version>
         <aspectj.version>1.9.1</aspectj.version>
         <test-name>End to End Scenario</test-name>
+        <parallel-count>5</parallel-count>
     </properties>
 
     <dependencies>
@@ -99,6 +100,22 @@
 
     </dependencies>
     <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>${maven-surefire-plugin.version}</version>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.aspectj</groupId>
+                            <artifactId>aspectjweaver</artifactId>
+                            <version>${aspectj.version}</version>
+                        </dependency>
+                    </dependencies>
+                </plugin>
+            </plugins>
+        </pluginManagement>
         <plugins>
             <plugin>
                 <groupId>io.qameta.allure</groupId>
@@ -152,13 +169,6 @@
                                 </property>
                             </systemProperties>
                         </configuration>
-                        <dependencies>
-                            <dependency>
-                                <groupId>org.aspectj</groupId>
-                                <artifactId>aspectjweaver</artifactId>
-                                <version>${aspectj.version}</version>
-                            </dependency>
-                        </dependencies>
                     </plugin>
                 </plugins>
             </build>
@@ -196,13 +206,6 @@
                                 </property>
                             </systemProperties>
                         </configuration>
-                        <dependencies>
-                            <dependency>
-                                <groupId>org.aspectj</groupId>
-                                <artifactId>aspectjweaver</artifactId>
-                                <version>${aspectj.version}</version>
-                            </dependency>
-                        </dependencies>
                     </plugin>
                 </plugins>
             </build>
@@ -244,13 +247,6 @@
                                 </property>
                             </systemProperties>
                         </configuration>
-                        <dependencies>
-                            <dependency>
-                                <groupId>org.aspectj</groupId>
-                                <artifactId>aspectjweaver</artifactId>
-                                <version>${aspectj.version}</version>
-                            </dependency>
-                        </dependencies>
                     </plugin>
                 </plugins>
             </build>
@@ -284,7 +280,7 @@
                                 </property>
                                 <property>
                                     <name>cucumber.execution.parallel.config.fixed.parallelism</name>
-                                    <value>4</value>
+                                    <value>${parallel-count}</value>
                                 </property>
                                 <property>
                                     <name>cucumber.execution.parallel.config.strategy</name>
@@ -300,13 +296,6 @@
                                 </property>
                             </systemProperties>
                         </configuration>
-                        <dependencies>
-                            <dependency>
-                                <groupId>org.aspectj</groupId>
-                                <artifactId>aspectjweaver</artifactId>
-                                <version>${aspectj.version}</version>
-                            </dependency>
-                        </dependencies>
                     </plugin>
                 </plugins>
             </build>
@@ -352,13 +341,6 @@
                                 </property>
                             </systemProperties>
                         </configuration>
-                        <dependencies>
-                            <dependency>
-                                <groupId>org.aspectj</groupId>
-                                <artifactId>aspectjweaver</artifactId>
-                                <version>${aspectj.version}</version>
-                            </dependency>
-                        </dependencies>
                     </plugin>
                 </plugins>
             </build>
@@ -392,7 +374,7 @@
                                 </property>
                                 <property>
                                     <name>cucumber.execution.parallel.config.fixed.parallelism</name>
-                                    <value>4</value>
+                                    <value>${parallel-count}</value>
                                 </property>
                                 <property>
                                     <name>cucumber.execution.parallel.config.strategy</name>
@@ -412,13 +394,6 @@
                                 </property>
                             </systemProperties>
                         </configuration>
-                        <dependencies>
-                            <dependency>
-                                <groupId>org.aspectj</groupId>
-                                <artifactId>aspectjweaver</artifactId>
-                                <version>${aspectj.version}</version>
-                            </dependency>
-                        </dependencies>
                     </plugin>
                 </plugins>
             </build>
@@ -447,6 +422,10 @@
                                 <property>
                                     <key>caps-type</key>
                                     <value>parallel</value>
+                                </property>
+                                <property>
+                                    <key>parallel-count</key>
+                                    <value>${parallel-count}</value>
                                 </property>
                                 <property>
                                     <key>env</key>
@@ -499,13 +478,6 @@
                                 </property>
                             </systemProperties>
                         </configuration>
-                        <dependencies>
-                            <dependency>
-                                <groupId>org.aspectj</groupId>
-                                <artifactId>aspectjweaver</artifactId>
-                                <version>${aspectj.version}</version>
-                            </dependency>
-                        </dependencies>
                     </plugin>
                 </plugins>
             </build>
@@ -539,7 +511,7 @@
                                 </property>
                                 <property>
                                     <name>cucumber.execution.parallel.config.fixed.parallelism</name>
-                                    <value>4</value>
+                                    <value>${parallel-count}</value>
                                 </property>
                                 <property>
                                     <name>cucumber.execution.parallel.config.strategy</name>
@@ -559,13 +531,6 @@
                                 </property>
                             </systemProperties>
                         </configuration>
-                        <dependencies>
-                            <dependency>
-                                <groupId>org.aspectj</groupId>
-                                <artifactId>aspectjweaver</artifactId>
-                                <version>${aspectj.version}</version>
-                            </dependency>
-                        </dependencies>
                     </plugin>
                 </plugins>
             </build>
@@ -594,6 +559,10 @@
                                 <property>
                                     <key>caps-type</key>
                                     <value>parallel_local</value>
+                                </property>
+                                <property>
+                                    <key>parallel-count</key>
+                                    <value>${parallel-count}</value>
                                 </property>
                                 <property>
                                     <key>env</key>
@@ -629,6 +598,10 @@
                                 <property>
                                     <key>caps-type</key>
                                     <value>mobile</value>
+                                </property>
+                                <property>
+                                    <key>parallel-count</key>
+                                    <value>${parallel-count}</value>
                                 </property>
                                 <property>
                                     <key>env</key>

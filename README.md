@@ -68,17 +68,17 @@ For all the parallel run configuration profiles, you can configure the maximum p
 
 - BrowserStack
 
-  Maven:
+  - Maven:
 
-  [pom.xml](pom.xml)
+    [pom.xml](pom.xml)
 
-  cucumber.execution.parallel.config.fixed.parallelism = 4
+    parallel-count = 5
 
-  Gradle:
+  - Gradle:
 
-  [build.gradle.kts](build.gradle.kts)
+    [build.gradle.kts](build.gradle.kts)
 
-  cucumber.execution.parallel.config.fixed.parallelism = 4
+    parallelCount = 5
 
 ## Test Reporting
 
