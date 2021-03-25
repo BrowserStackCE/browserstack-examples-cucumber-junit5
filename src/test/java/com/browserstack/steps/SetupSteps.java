@@ -53,81 +53,90 @@ public class SetupSteps {
         JSONObject testSelectedConfig;
         JSONParser parser = new JSONParser();
         DesiredCapabilities caps = new DesiredCapabilities();
-        if (StringUtils.isNoneEmpty(System.getProperty("env")) && System.getProperty("env").equalsIgnoreCase("on-prem")) {
-            if (OsUtility.isMac()) {
-                System.setProperty(WEBDRIVER_CHROME_DRIVER, Path.of(driverBaseLocation, "/chromedriver").toString());
+        if (StringUtils.isNoneEmpty(System.getProperty("env"))) {
+            switch (System.getProperty("env")) {
+                case "on-prem":
+                    if (OsUtility.isWindows()) {
+                        System.setProperty(WEBDRIVER_CHROME_DRIVER, Path.of(driverBaseLocation, "/chromedriver.exe").toString());
+                    } else {
+                        System.setProperty(WEBDRIVER_CHROME_DRIVER, Path.of(driverBaseLocation, "/chromedriver").toString());
+                    }
+                    stepData.webDriver = new ChromeDriver();
+                    stepData.url = URL;
+                    break;
+                case "docker":
+                    DesiredCapabilities dockerCaps = new DesiredCapabilities(new ChromeOptions());
+                    Utility.setLocationSpecificCapabilities(dockerCaps);
+                    stepData.webDriver = new RemoteWebDriver(new URL(DOCKER_SELENIUM_HUB_URL), dockerCaps);
+                    stepData.url = URL;
+                    break;
+                default:
+                    if (System.getenv("caps") != null) {
+                        testConfigs = (JSONObject) parser.parse(System.getenv("caps"));
+                    } else {
+                        testConfigs = (JSONObject) parser.parse(new FileReader(CAPABILITY_CONFIG_FILE));
+                    }
+                    if (System.getProperty("parallel") != null) {
+                        testSelectedConfig = ParallelTest.threadLocalValue.get();
+                        log.debug("Test Config : " + testSelectedConfig.toJSONString());
+                    } else {
+                        JSONObject singleCapabilityJson = (JSONObject) ((JSONObject) testConfigs.get("tests")).get(System.getProperty("caps-type"));
+                        JSONArray environments = (JSONArray) singleCapabilityJson.get("env_caps");
+                        testSelectedConfig = Utility.getCombinedCapability((Map<String, String>) environments.get(0), testConfigs, singleCapabilityJson);
+                    }
+
+                    Map<String, String> commonCapabilities = (Map<String, String>) testSelectedConfig.get("capabilities");
+                    Iterator it = commonCapabilities.entrySet().iterator();
+                    while (it.hasNext()) {
+                        Map.Entry pair = (Map.Entry) it.next();
+                        if (caps.getCapability(pair.getKey().toString()) == null) {
+                            caps.setCapability(pair.getKey().toString(), pair.getValue().toString());
+                        }
+                    }
+                    setBuildName(caps, scenario);
+                    String username = System.getenv("BROWSERSTACK_USERNAME");
+                    if (username == null) {
+                        username = (String) testSelectedConfig.get("user");
+                    }
+                    String accessKey = System.getenv("BROWSERSTACK_ACCESS_KEY");
+                    if (accessKey == null) {
+                        accessKey = (String) testSelectedConfig.get("key");
+                    }
+                    stepData.url = (String) testSelectedConfig.get("application_endpoint");
+                    caps.setCapability("browserstack.user", username);
+                    caps.setCapability("browserstack.key", accessKey);
+                    setupLocal(caps, testConfigs, accessKey);
+                    Utility.setLocationSpecificCapabilities(caps);
+                    stepData.webDriver = new RemoteWebDriver(new URL(BROWSERSTACK_HUB_URL), caps);
+                    stepData.webDriver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+                    if (!caps.getCapabilityNames().contains("device")) {
+                        stepData.webDriver.manage().window().maximize();
+                    }
             }
-            if (OsUtility.isWindows()) {
-                System.setProperty(WEBDRIVER_CHROME_DRIVER, Path.of(driverBaseLocation, "/chromedriver.exe").toString());
-            }
-            if (OsUtility.isUnix()) {
-                System.setProperty(WEBDRIVER_CHROME_DRIVER, Path.of(driverBaseLocation, "/chromedriver").toString());
-            }
-            stepData.webDriver = new ChromeDriver();
-            stepData.url = URL;
-        } else if (StringUtils.isNoneEmpty(System.getProperty("env")) && System.getProperty("env").equalsIgnoreCase("docker")) {
-            DesiredCapabilities dockerCaps = new DesiredCapabilities(new ChromeOptions());
-            Utility.setLocationSpecificCapabilities(dockerCaps);
-            stepData.webDriver = new RemoteWebDriver(new URL(DOCKER_SELENIUM_HUB_URL), dockerCaps);
-            stepData.url = URL;
         } else {
-            if (System.getenv("caps") != null) {
-                testConfigs = (JSONObject) parser.parse(System.getenv("caps"));
-            } else {
-                testConfigs = (JSONObject) parser.parse(new FileReader(CAPABILITY_CONFIG_FILE));
-            }
-            if (System.getProperty("parallel") != null) {
-                testSelectedConfig = ParallelTest.threadLocalValue.get();
-                log.debug("Test Config : " + testSelectedConfig.toJSONString());
-            } else {
-                JSONObject singleCapabilityJson = (JSONObject) ((JSONObject) testConfigs.get("tests")).get(System.getProperty("caps-type"));
-                JSONArray environments = (JSONArray) singleCapabilityJson.get("env_caps");
-                testSelectedConfig = Utility.getCombinedCapability((Map<String, String>) environments.get(0), testConfigs, singleCapabilityJson);
-            }
-
-            Map<String, String> commonCapabilities = (Map<String, String>) testSelectedConfig.get("capabilities");
-            Iterator it = commonCapabilities.entrySet().iterator();
-            while (it.hasNext()) {
-                Map.Entry pair = (Map.Entry) it.next();
-                if (caps.getCapability(pair.getKey().toString()) == null) {
-                    caps.setCapability(pair.getKey().toString(), pair.getValue().toString());
-                }
-            }
-
-            caps.setCapability("name", scenario.getName());
-//            String buildName = System.getenv("BROWSERSTACK_BUILD_NAME");
-//            if (buildName == null) {
-//                buildName = String.valueOf(Instant.now().toEpochMilli());
-//            }
-//            caps.setCapability("build", REPO_NAME + buildName);
-
-            String username = System.getenv("BROWSERSTACK_USERNAME");
-            if (username == null) {
-                username = (String) testSelectedConfig.get("user");
-            }
-            String accessKey = System.getenv("BROWSERSTACK_ACCESS_KEY");
-            if (accessKey == null) {
-                accessKey = (String) testSelectedConfig.get("key");
-            }
-            stepData.url = (String) testSelectedConfig.get("application_endpoint");
-            caps.setCapability("browserstack.user", username);
-            caps.setCapability("browserstack.key", accessKey);
-            if (caps.getCapability("browserstack.local") != null && caps.getCapability("browserstack.local").equals("true")) {
-                String localIdentifier = RandomStringUtils.randomAlphabetic(8);
-                caps.setCapability("browserstack.localIdentifier", localIdentifier);
-                bstackLocal = new Local();
-                Map<String, String> options = Utility.getLocalOptions(testConfigs);
-                options.put("key", accessKey);
-                options.put("localIdentifier", localIdentifier);
-                bstackLocal.start(options);
-            }
-            Utility.setLocationSpecificCapabilities(caps);
-            stepData.webDriver = new RemoteWebDriver(new URL(BROWSERSTACK_HUB_URL), caps);
-            stepData.webDriver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-            if (!caps.getCapabilityNames().contains("device")) {
-                stepData.webDriver.manage().window().maximize();
-            }
+            throw new RuntimeException("Please set 'env' property as 'on-prem', 'docker' or remote.");
         }
+    }
+
+    private void setupLocal(DesiredCapabilities caps, JSONObject testConfigs, String accessKey) throws Exception {
+        if (caps.getCapability("browserstack.local") != null && caps.getCapability("browserstack.local").equals("true")) {
+            String localIdentifier = RandomStringUtils.randomAlphabetic(8);
+            caps.setCapability("browserstack.localIdentifier", localIdentifier);
+            bstackLocal = new Local();
+            Map<String, String> options = Utility.getLocalOptions(testConfigs);
+            options.put("key", accessKey);
+            options.put("localIdentifier", localIdentifier);
+            bstackLocal.start(options);
+        }
+    }
+
+    private void setBuildName(DesiredCapabilities caps, Scenario scenario) {
+        caps.setCapability("name", scenario.getName());
+        String buildName = System.getenv("BROWSERSTACK_BUILD_NAME");
+        if (buildName == null) {
+            buildName = Utility.getEpochTime();
+        }
+        caps.setCapability("build", REPO_NAME + buildName);
     }
 
     @After
