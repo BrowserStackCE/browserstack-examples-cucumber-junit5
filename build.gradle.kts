@@ -132,6 +132,7 @@ tasks.register("bstack-parallel-browsers", JavaExec::class) {
     classpath = sourceSets["test"].runtimeClasspath
     systemProperty("env", "remote")
     systemProperty("caps-type", "parallel")
+    systemProperty("parallel-count", "5")
     systemProperty("config","parallel.config.json")
     systemProperty("cucumber.publish.quiet","true")
 }
@@ -177,6 +178,7 @@ tasks.register("bstack-local-parallel-browsers", JavaExec::class) {
     classpath = sourceSets["test"].runtimeClasspath
     systemProperty("env", "remote")
     systemProperty("caps-type", "parallel_local")
+    systemProperty("parallel-count", "5")
     systemProperty("config","parallel.config.json")
     systemProperty("cucumber.publish.quiet","true")
 }
@@ -188,6 +190,7 @@ tasks.register("mobile", JavaExec::class) {
     classpath = sourceSets["test"].runtimeClasspath
     systemProperty("env", "remote")
     systemProperty("caps-type", "mobile")
+    systemProperty("parallel-count", "5")
     systemProperty("config","parallel.config.json")
     systemProperty("cucumber.publish.quiet","true")
 }
