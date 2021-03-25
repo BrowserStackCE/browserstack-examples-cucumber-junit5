@@ -93,7 +93,7 @@ public class SetupSteps {
                             caps.setCapability(pair.getKey().toString(), pair.getValue().toString());
                         }
                     }
-                    setBuildName(caps, scenario);
+                    setBuildAndTestName(caps, scenario);
                     String username = System.getenv("BROWSERSTACK_USERNAME");
                     if (username == null) {
                         username = (String) testSelectedConfig.get("user");
@@ -130,7 +130,7 @@ public class SetupSteps {
         }
     }
 
-    private void setBuildName(DesiredCapabilities caps, Scenario scenario) {
+    private void setBuildAndTestName(DesiredCapabilities caps, Scenario scenario) {
         caps.setCapability("name", scenario.getName());
         String buildName = System.getenv("BROWSERSTACK_BUILD_NAME");
         if (buildName == null) {
