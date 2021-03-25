@@ -16,6 +16,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.FileReader;
 import java.net.URL;
@@ -38,6 +40,8 @@ public class SetupSteps {
     private static final String BROWSERSTACK_HUB_URL = "https://hub.browserstack.com/wd/hub";
     private static final String CAPABILITY_CONFIG_FILE = "src/test/resources/config/caps.json";
     private static final String REPO_NAME = "browserstack-examples-cucumber-junit5 - ";
+
+    public static Logger log = LoggerFactory.getLogger(ParallelTest.class);
 
     public SetupSteps(StepData stepData) {
         this.stepData = stepData;
@@ -74,6 +78,7 @@ public class SetupSteps {
             }
             if (System.getProperty("parallel") != null) {
                 testSelectedConfig = ParallelTest.threadLocalValue.get();
+                log.debug("Test Config : " + testSelectedConfig.toJSONString());
             } else {
                 JSONObject singleCapabilityJson = (JSONObject) ((JSONObject) testConfigs.get("tests")).get(System.getProperty("caps-type"));
                 JSONArray environments = (JSONArray) singleCapabilityJson.get("env_caps");

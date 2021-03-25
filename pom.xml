@@ -449,6 +449,10 @@
                                     <value>parallel</value>
                                 </property>
                                 <property>
+                                    <key>parallel-count</key>
+                                    <value>5</value>
+                                </property>
+                                <property>
                                     <key>env</key>
                                     <value>remote</value>
                                 </property>
@@ -596,6 +600,10 @@
                                     <value>parallel_local</value>
                                 </property>
                                 <property>
+                                    <key>parallel-count</key>
+                                    <value>5</value>
+                                </property>
+                                <property>
                                     <key>env</key>
                                     <value>remote</value>
                                 </property>
@@ -629,6 +637,10 @@
                                 <property>
                                     <key>caps-type</key>
                                     <value>mobile</value>
+                                </property>
+                                <property>
+                                    <key>parallel-count</key>
+                                    <value>5</value>
                                 </property>
                                 <property>
                                     <key>env</key>
