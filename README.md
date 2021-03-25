@@ -72,13 +72,17 @@ For all the parallel run configuration profiles, you can configure the maximum p
 
   [pom.xml](pom.xml)
 
-  cucumber.execution.parallel.config.fixed.parallelism = 4
+  cucumber.execution.parallel.config.fixed.parallelism = 5
+
+  parallel-count = 5
 
   Gradle:
 
   [build.gradle.kts](build.gradle.kts)
 
-  cucumber.execution.parallel.config.fixed.parallelism = 4
+  cucumber.execution.parallel.config.fixed.parallelism = 5
+
+  parallel-count = 5
 
 ## Test Reporting
 

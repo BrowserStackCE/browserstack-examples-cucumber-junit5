@@ -284,7 +284,7 @@
                                 </property>
                                 <property>
                                     <name>cucumber.execution.parallel.config.fixed.parallelism</name>
-                                    <value>4</value>
+                                    <value>5</value>
                                 </property>
                                 <property>
                                     <name>cucumber.execution.parallel.config.strategy</name>
@@ -392,7 +392,7 @@
                                 </property>
                                 <property>
                                     <name>cucumber.execution.parallel.config.fixed.parallelism</name>
-                                    <value>4</value>
+                                    <value>5</value>
                                 </property>
                                 <property>
                                     <name>cucumber.execution.parallel.config.strategy</name>
@@ -543,7 +543,7 @@
                                 </property>
                                 <property>
                                     <name>cucumber.execution.parallel.config.fixed.parallelism</name>
-                                    <value>4</value>
+                                    <value>5</value>
                                 </property>
                                 <property>
                                     <name>cucumber.execution.parallel.config.strategy</name>
