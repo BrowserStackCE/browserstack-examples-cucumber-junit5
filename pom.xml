@@ -21,6 +21,7 @@
         <json-simple.version>1.1.1</json-simple.version>
         <aspectj.version>1.9.1</aspectj.version>
         <test-name>End to End Scenario</test-name>
+        <parallel-count>5</parallel-count>
     </properties>
 
     <dependencies>
@@ -279,7 +280,7 @@
                                 </property>
                                 <property>
                                     <name>cucumber.execution.parallel.config.fixed.parallelism</name>
-                                    <value>5</value>
+                                    <value>${parallel-count}</value>
                                 </property>
                                 <property>
                                     <name>cucumber.execution.parallel.config.strategy</name>
@@ -373,7 +374,7 @@
                                 </property>
                                 <property>
                                     <name>cucumber.execution.parallel.config.fixed.parallelism</name>
-                                    <value>5</value>
+                                    <value>${parallel-count}</value>
                                 </property>
                                 <property>
                                     <name>cucumber.execution.parallel.config.strategy</name>
@@ -424,7 +425,7 @@
                                 </property>
                                 <property>
                                     <key>parallel-count</key>
-                                    <value>5</value>
+                                    <value>${parallel-count}</value>
                                 </property>
                                 <property>
                                     <key>env</key>
@@ -510,7 +511,7 @@
                                 </property>
                                 <property>
                                     <name>cucumber.execution.parallel.config.fixed.parallelism</name>
-                                    <value>5</value>
+                                    <value>${parallel-count}</value>
                                 </property>
                                 <property>
                                     <name>cucumber.execution.parallel.config.strategy</name>
@@ -561,7 +562,7 @@
                                 </property>
                                 <property>
                                     <key>parallel-count</key>
-                                    <value>5</value>
+                                    <value>${parallel-count}</value>
                                 </property>
                                 <property>
                                     <key>env</key>
@@ -600,7 +601,7 @@
                                 </property>
                                 <property>
                                     <key>parallel-count</key>
-                                    <value>5</value>
+                                    <value>${parallel-count}</value>
                                 </property>
                                 <property>
                                     <key>env</key>

@@ -7,9 +7,11 @@ repositories {
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_8
-    targetCompatibility = JavaVersion.VERSION_8
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
 }
+
+val parallelCount = 5
 
 dependencies {
     testImplementation("org.slf4j:slf4j-api:1.7.30")
@@ -83,7 +85,7 @@ tasks.register<Test>("docker-parallel"){
     systemProperty("env", "docker")
     systemProperty("cucumber.publish.quiet", "true")
     systemProperty("cucumber.execution.parallel.enabled", "true")
-    systemProperty("cucumber.execution.parallel.config.fixed.parallelism", 4)
+    systemProperty("cucumber.execution.parallel.config.fixed.parallelism", parallelCount)
     systemProperty("cucumber.execution.parallel.config.strategy", "fixed")
     systemProperty("cucumber.plugin", "json:build/reports/cucumber.json")
     useJUnitPlatform {
@@ -117,7 +119,7 @@ tasks.register<Test>("bstack-parallel"){
     systemProperty("caps-type", "single")
     systemProperty("cucumber.publish.quiet", "true")
     systemProperty("cucumber.execution.parallel.enabled", "true")
-    systemProperty("cucumber.execution.parallel.config.fixed.parallelism", 4)
+    systemProperty("cucumber.execution.parallel.config.fixed.parallelism", parallelCount)
     systemProperty("cucumber.execution.parallel.config.strategy", "fixed")
     systemProperty("cucumber.plugin", "json:build/reports/cucumber.json")
     useJUnitPlatform {
@@ -132,7 +134,7 @@ tasks.register("bstack-parallel-browsers", JavaExec::class) {
     classpath = sourceSets["test"].runtimeClasspath
     systemProperty("env", "remote")
     systemProperty("caps-type", "parallel")
-    systemProperty("parallel-count", "5")
+    systemProperty("parallel-count", parallelCount)
     systemProperty("config","parallel.config.json")
     systemProperty("cucumber.publish.quiet","true")
 }
@@ -163,7 +165,7 @@ tasks.register<Test>("bstack-local-parallel"){
     systemProperty("caps-type", "single_local")
     systemProperty("cucumber.publish.quiet", "true")
     systemProperty("cucumber.execution.parallel.enabled", "true")
-    systemProperty("cucumber.execution.parallel.config.fixed.parallelism", 4)
+    systemProperty("cucumber.execution.parallel.config.fixed.parallelism", parallelCount)
     systemProperty("cucumber.execution.parallel.config.strategy", "fixed")
     systemProperty("cucumber.plugin", "json:build/reports/cucumber.json")
     useJUnitPlatform {
@@ -178,7 +180,7 @@ tasks.register("bstack-local-parallel-browsers", JavaExec::class) {
     classpath = sourceSets["test"].runtimeClasspath
     systemProperty("env", "remote")
     systemProperty("caps-type", "parallel_local")
-    systemProperty("parallel-count", "5")
+    systemProperty("parallel-count", parallelCount)
     systemProperty("config","parallel.config.json")
     systemProperty("cucumber.publish.quiet","true")
 }
@@ -190,7 +192,7 @@ tasks.register("mobile", JavaExec::class) {
     classpath = sourceSets["test"].runtimeClasspath
     systemProperty("env", "remote")
     systemProperty("caps-type", "mobile")
-    systemProperty("parallel-count", "5")
+    systemProperty("parallel-count", parallelCount)
     systemProperty("config","parallel.config.json")
     systemProperty("cucumber.publish.quiet","true")
 }
