@@ -21,7 +21,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.FileReader;
 import java.net.URL;
-import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -30,7 +30,7 @@ public class SetupSteps {
 
     private final StepData stepData;
     private Local bstackLocal;
-    protected String driverBaseLocation = Path.of(System.getProperty("user.dir"), "/src/test/resources/drivers").toString();
+    protected String driverBaseLocation = Paths.get(System.getProperty("user.dir"), "/src/test/resources/drivers").toString();
 
     private static final String PASSED = "passed";
     private static final String FAILED = "failed";
@@ -57,9 +57,9 @@ public class SetupSteps {
             switch (System.getProperty("env")) {
                 case "on-prem":
                     if (OsUtility.isWindows()) {
-                        System.setProperty(WEBDRIVER_CHROME_DRIVER, Path.of(driverBaseLocation, "/chromedriver.exe").toString());
+                        System.setProperty(WEBDRIVER_CHROME_DRIVER, Paths.get(driverBaseLocation, "/chromedriver.exe").toString());
                     } else {
-                        System.setProperty(WEBDRIVER_CHROME_DRIVER, Path.of(driverBaseLocation, "/chromedriver").toString());
+                        System.setProperty(WEBDRIVER_CHROME_DRIVER, Paths.get(driverBaseLocation, "/chromedriver").toString());
                     }
                     stepData.webDriver = new ChromeDriver();
                     stepData.url = URL;
