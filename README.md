@@ -66,7 +66,7 @@ For all the parallel run configuration profiles, you can configure the maximum p
 
   [docker-compose.yml](docker-compose.yml)
   
-  scale = 2
+  scale = 4
 
 - BrowserStack
 
