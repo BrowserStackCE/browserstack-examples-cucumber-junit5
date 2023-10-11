@@ -7,3 +7,5 @@ build
 *.err
 bin
 logs
+cucumberTestReport.json
+.java-version
