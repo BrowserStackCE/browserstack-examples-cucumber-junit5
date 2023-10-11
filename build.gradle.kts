@@ -61,37 +61,6 @@ tasks.register<Test>("on-prem-suite"){
     }
 }
 
-tasks.register<Test>("docker"){
-    dependsOn(":clean")
-    ignoreFailures = true
-    systemProperties(System.getProperties().toMap() as Map<String, Object>)
-    systemProperty("env", "docker")
-    systemProperty("cucumber.publish.quiet", "true")
-    if (System.getProperty("test-name") != null) {
-        systemProperty("cucumber.filter.name", System.getProperty ("test-name"))
-    } else {
-        systemProperty("cucumber.filter.name", "End to End Scenario")
-    }
-    systemProperty("cucumber.plugin", "json:build/reports/cucumber.json")
-    useJUnitPlatform {
-        excludeTags("disabled")
-    }
-}
-
-tasks.register<Test>("docker-parallel"){
-    dependsOn(":clean")
-    ignoreFailures = true
-    systemProperties(System.getProperties().toMap() as Map<String, Object>)
-    systemProperty("env", "docker")
-    systemProperty("cucumber.publish.quiet", "true")
-    systemProperty("cucumber.execution.parallel.enabled", "true")
-    systemProperty("cucumber.execution.parallel.config.fixed.parallelism", parallelCount)
-    systemProperty("cucumber.execution.parallel.config.strategy", "fixed")
-    systemProperty("cucumber.plugin", "json:build/reports/cucumber.json")
-    useJUnitPlatform {
-        excludeTags("disabled")
-    }
-}
 
 tasks.register<Test>("bstack-single"){
     dependsOn(":clean")
