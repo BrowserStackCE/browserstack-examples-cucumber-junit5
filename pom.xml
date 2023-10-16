@@ -19,7 +19,6 @@
         <json-simple.version>1.1.1</json-simple.version>
         <aspectj.version>1.9.1</aspectj.version>
         <test-name>End to End Scenario</test-name>
-        <parallel-count>5</parallel-count>
     </properties>
     <dependencies>
         <dependency>
@@ -284,24 +283,12 @@
 -Dfile.encoding=UTF-8
                                     -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"</argLine>
                                 <property>
-                                    <name>cucumber.execution.parallel.enabled</name>
-                                    <value>true</value>
-                                </property>
-                                <property>
                                     <name>cucumber.publish.quiet</name>
                                     <value>true</value>
                                 </property>
                                 <property>
                                     <name>cucumber.plugin</name>
                                     <value>html:target/cucumber-html-reports.html,io.qameta.allure.cucumber6jvm.AllureCucumber6Jvm</value>
-                                </property>
-                                <property>
-                                    <name>cucumber.execution.parallel.config.fixed.parallelism</name>
-                                    <value>${parallel-count}</value>
-                                </property>
-                                <property>
-                                    <name>cucumber.execution.parallel.config.strategy</name>
-                                    <value>fixed</value>
                                 </property>
                                 <property>
                                     <name>caps-type</name>
@@ -313,45 +300,6 @@
                                 </property>
                                 <property>
                                     <name>env</name>
-                                    <value>remote</value>
-                                </property>
-                            </systemProperties>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>bstack-parallel-browsers</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>exec-maven-plugin</artifactId>
-                        <version>3.0.0</version>
-                        <configuration>
-                            <classpathScope>test</classpathScope>
-                            <mainClass>com.browserstack.ParallelTest</mainClass>
-                            <cleanupDaemonThreads>false</cleanupDaemonThreads>
-                            <systemProperties>
-                                <property>
-                                    <key>cucumber.publish.quiet</key>
-                                    <value>true</value>
-                                </property>
-                                <property>
-                                    <key>cucumber.plugin</key>
-                                    <value>html:target/cucumber-html-reports.html</value>
-                                </property>
-                                <property>
-                                    <key>caps-type</key>
-                                    <value>parallel</value>
-                                </property>
-                                <property>
-                                    <key>parallel-count</key>
-                                    <value>${parallel-count}</value>
-                                </property>
-                                <property>
-                                    <key>env</key>
                                     <value>remote</value>
                                 </property>
                             </systemProperties>
@@ -419,24 +367,12 @@
 -Dfile.encoding=UTF-8
                                     -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"</argLine>
                                 <property>
-                                    <name>cucumber.execution.parallel.enabled</name>
-                                    <value>true</value>
-                                </property>
-                                <property>
                                     <name>cucumber.publish.quiet</name>
                                     <value>true</value>
                                 </property>
                                 <property>
                                     <name>cucumber.plugin</name>
                                     <value>html:target/cucumber-html-reports.html,io.qameta.allure.cucumber6jvm.AllureCucumber6Jvm</value>
-                                </property>
-                                <property>
-                                    <name>cucumber.execution.parallel.config.fixed.parallelism</name>
-                                    <value>${parallel-count}</value>
-                                </property>
-                                <property>
-                                    <name>cucumber.execution.parallel.config.strategy</name>
-                                    <value>fixed</value>
                                 </property>
                                 <property>
                                     <name>caps-type</name>
@@ -448,84 +384,6 @@
                                 </property>
                                 <property>
                                     <name>env</name>
-                                    <value>remote</value>
-                                </property>
-                            </systemProperties>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>bstack-local-parallel-browsers</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>exec-maven-plugin</artifactId>
-                        <version>3.0.0</version>
-                        <configuration>
-                            <classpathScope>test</classpathScope>
-                            <mainClass>com.browserstack.ParallelTest</mainClass>
-                            <cleanupDaemonThreads>false</cleanupDaemonThreads>
-                            <systemProperties>
-                                <property>
-                                    <key>cucumber.publish.quiet</key>
-                                    <value>true</value>
-                                </property>
-                                <property>
-                                    <key>cucumber.plugin</key>
-                                    <value>html:target/cucumber-html-reports.html</value>
-                                </property>
-                                <property>
-                                    <key>caps-type</key>
-                                    <value>parallel_local</value>
-                                </property>
-                                <property>
-                                    <key>parallel-count</key>
-                                    <value>${parallel-count}</value>
-                                </property>
-                                <property>
-                                    <key>env</key>
-                                    <value>remote</value>
-                                </property>
-                            </systemProperties>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>mobile</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>exec-maven-plugin</artifactId>
-                        <version>3.0.0</version>
-                        <configuration>
-                            <classpathScope>test</classpathScope>
-                            <mainClass>com.browserstack.ParallelTest</mainClass>
-                            <cleanupDaemonThreads>false</cleanupDaemonThreads>
-                            <systemProperties>
-                                <property>
-                                    <key>cucumber.publish.quiet</key>
-                                    <value>true</value>
-                                </property>
-                                <property>
-                                    <key>cucumber.plugin</key>
-                                    <value>html:target/cucumber-html-reports.html</value>
-                                </property>
-                                <property>
-                                    <key>caps-type</key>
-                                    <value>mobile</value>
-                                </property>
-                                <property>
-                                    <key>parallel-count</key>
-                                    <value>${parallel-count}</value>
-                                </property>
-                                <property>
-                                    <key>env</key>
                                     <value>remote</value>
                                 </property>
                             </systemProperties>
