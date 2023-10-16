@@ -344,7 +344,7 @@
                                 </property>
                                 <property>
                                     <name>env</name>
-                                    <value>remote</value>
+                                    <value>remote-local</value>
                                 </property>
                             </systemProperties>
                         </configuration>
@@ -376,7 +376,7 @@
                                 </property>
                                 <property>
                                     <name>caps-type</name>
-                                    <value>single_local</value>
+                                    <value>parallel_local</value>
                                 </property>
                                 <property>
                                     <name>allure.results.directory</name>
@@ -384,8 +384,9 @@
                                 </property>
                                 <property>
                                     <name>env</name>
-                                    <value>remote</value>
+                                    <value>remote-local</value>
                                 </property>
+
                             </systemProperties>
                         </configuration>
                     </plugin>

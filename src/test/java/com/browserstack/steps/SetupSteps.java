@@ -52,7 +52,13 @@ public class SetupSteps {
                     stepData.url = URL;
                     break;
                 default:
-                    stepData.url = "https://bstackdemo.com";
+                    System.out.println(System.getProperty("env"));
+                    if (StringUtils.isNoneEmpty(System.getProperty("env"))
+                            && System.getProperty("env").equalsIgnoreCase("remote-local")) {
+                        stepData.url = "http://localhost:3000";
+                    } else {
+                        stepData.url = "https://bstackdemo.com";
+                    }
                     Utility.setLocationSpecificCapabilities(caps);
                     stepData.webDriver = new RemoteWebDriver(new URL(BROWSERSTACK_HUB_URL), caps);
                     stepData.webDriver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
@@ -64,15 +70,10 @@ public class SetupSteps {
 
     @After
     public void teardown(Scenario scenario) throws Exception {
-        if (StringUtils.isNoneEmpty(System.getProperty("env"))
-                && System.getProperty("env").equalsIgnoreCase("remote")) {
-            if (scenario.isFailed()) {
-                Utility.setSessionStatus(stepData.webDriver, FAILED, String.format("%s failed.", scenario.getName()));
-            } else {
-                Utility.setSessionStatus(stepData.webDriver, PASSED, String.format("%s passed.", scenario.getName()));
-            }
+        if(stepData.webDriver != null) {
+            stepData.webDriver.quit();
         }
-        stepData.webDriver.quit();
+
     }
 
 }
