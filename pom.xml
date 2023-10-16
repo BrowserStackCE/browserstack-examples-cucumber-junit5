@@ -68,11 +68,6 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>com.browserstack</groupId>
-            <artifactId>browserstack-local-java</artifactId>
-            <version>${browserstack-local-java.version}</version>
-        </dependency>
-        <dependency>
             <groupId>com.googlecode.json-simple</groupId>
             <artifactId>json-simple</artifactId>
             <version>${json-simple.version}</version>
