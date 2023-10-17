@@ -5,3 +5,8 @@ build
 *.iml
 *.log
 *.err
+bin
+logs
+cucumberTestReport.json
+.java-version
+*.exe

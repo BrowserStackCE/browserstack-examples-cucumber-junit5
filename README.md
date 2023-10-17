@@ -8,7 +8,7 @@ JUnit 5 is the next generation of JUnit. The goal of JUnit 5 is to create an up-
 
 This BrowserStack Example repository demonstrates a Selenium test framework written in Cucumber and Junit 5 with parallel testing capabilities. The Selenium test scripts are written for the open source [BrowserStack Demo web application](https://bstackdemo.com) ([Github](https://github.com/browserstack/browserstack-demo-app)). This BrowserStack Demo App is an e-commerce web application which showcases multiple real-world user scenarios. The app is bundled with offers data, orders data and products data that contains everything you need to start using the app and run tests out-of-the-box.
 
-The Selenium test tests are run on different platforms like on-prem, docker and BrowserStack using various run configurations and test capabilities.
+The Selenium test tests are run on different platforms like on-prem and BrowserStack using various run configurations and test capabilities.
 
 ---
 
@@ -54,19 +54,12 @@ This repository contains the following Selenium tests:
 ## Test infrastructure environments
 
 - [On-premise/self-hosted](#on-premise-self-hosted)
-- [Docker](#docker)
 - [BrowserStack](#browserstack)
 
 
 ## Configuring the maximum parallel test threads for this repository
 
 For all the parallel run configuration profiles, you can configure the maximum parallel test threads by changing the settings below.
-
-- Docker
-
-  [docker-compose.yml](docker-compose.yml)
-  
-  scale = 4
 
 - BrowserStack
 
@@ -158,104 +151,6 @@ Note: The ChromeDriver version must match the Chrome browser version on your mac
   This run profile executes the entire test suite sequentially on a single browser, on your own machine.
 
   
----
-
-# Docker
-
-[Docker](https://docs.docker.com/get-started/overview/) is an open source platform that provides the ability to package and test applications in an isolated environment called containers.
-
-## Prerequisites
-
-- Install and start [Docker](https://docs.docker.com/get-docker/).
-- Note: Docker should be running on the test machine. Ensure Docker Compose is installed as well.
-- Run `docker-compose pull` from the current directory of the repository.
-
-## Running Your Tests
-
-### Run a specific test on the docker infrastructure
-
-- How to run the test?
-
-  - Start the Docker by running the following command:
-
-  ```sh
-  docker-compose up -d
-  ```
-
-  - To run the default test scenario (e.g. End to End Scenario) on your own machine, use the following command:
-
-  Maven:
-  ```sh
-  mvn test -P docker
-  ```
-
-  Gradle:
-    ```sh
-  gradle docker
-  ```
-
-  To run a specific test scenario, use the following command with the additional 'test-name' argument:
-
-  Maven:
-  ```sh
-  mvn test -P docker -Dtest-name="<Test scenario name>"
-  ```
-
-  Gradle:
-  ```sh
-  gradle docker -Dtest-name="<Test scenario name>"
-  ```
-
-  where,  the argument 'test-name' can be any Cucumber scenario name configured in this repository.
-
-  E.g. "Login as username", "Login as Locked User", "Offers for mumbai geo-location" or any of the other test scenario names, as outlined in [About the tests in this repository](#About-the-tests-in-this-repository) section.
-
-
-- After tests are complete, you can stop the Docker by running the following command:
-
-  ```sh
-  docker-compose down
-  ```
-
-- Output
-
-  This run profile executes a specific test scenario on a single browser deployed on a docker image.
-
-
-### Run the entire test suite in parallel using Docker
-
-- How to run the test?
-
-  - Start the docker image first by running the following command:
-
-  ```sh
-  docker-compose up -d
-  ```
-
-  - To run the entire test suite in parallel on the docker image, use the following command:
-
-  Maven:
-  ```sh
-  mvn test -P docker-parallel
-  ```
-
-  Gradle:
-  ```sh
-  gradle docker-parallel
-  ```
-
-  - After the tests are complete stop the Selenium grid by running the following command:
-
-  ```sh
-  docker-compose down
-  ```
-
-- Output
-
-  This run profile executes the entire test suite in parallel on a single browser, deployed on a docker image.
-
-- Note: By default, this execution would run maximum 5 test threads in parallel on Docker. Refer to the section ["Configuring the maximum parallel test threads for this repository"](#Configuring-the-maximum-parallel-test-threads-for-this-repository) for updating the parallel thread count based on your requirements.
-
 ---
 
 # BrowserStack
