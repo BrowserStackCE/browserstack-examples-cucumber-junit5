@@ -57,24 +57,6 @@ This repository contains the following Selenium tests:
 - [BrowserStack](#browserstack)
 
 
-## Configuring the maximum parallel test threads for this repository
-
-For all the parallel run configuration profiles, you can configure the maximum parallel test threads by changing the settings below.
-
-- BrowserStack
-
-  - Maven:
-
-    [pom.xml](pom.xml)
-
-    parallel-count = 5
-
-  - Gradle:
-
-    [build.gradle.kts](build.gradle.kts)
-
-    parallelCount = 5
-
 ## Test Reporting
 
 - [Allure reports](#generating-allure-reports)
@@ -249,24 +231,6 @@ In this section, we will run the tests in parallel on a single browser on Browse
   - Note: By default, this execution would run maximum 5 test threads in parallel on BrowserStack. Refer to the section ["Configuring the maximum parallel test threads for this repository"](#Configuring-the-maximum-parallel-test-threads-for-this-repository) for updating the parallel thread count based on your requirements.
 
 
-### Run the entire test suite in parallel on multiple BrowserStack browsers
-
-In this section, we will run the tests in parallel on multiple browsers on Browserstack. Refer to the `parallel` object in `caps.json` file to change test capabilities for this configuration.
-
-- How to run the test?
-
-  To run the entire test suite in parallel on multiple BrowserStack browsers, use the following command:
-
-  Maven:
-  ```sh
-  mvn compile exec:java -P bstack-parallel-browsers
-  ```
-
-  Gradle:
-  ```sh
-  gradle bstack-parallel-browsers
-  ```
-
 ### [Web application hosted on internal environment] Running your tests on BrowserStack using BrowserStackLocal
 
 #### Prerequisites
@@ -344,29 +308,6 @@ In this section, we will run the test cases to test the internally hosted websit
 
 - Note: By default, this execution would run maximum 5 test threads in parallel on BrowserStack. Refer to the section ["Configuring the maximum parallel test threads for this repository"](#Configuring-the-maximum-parallel-test-threads-for-this-repository) for updating the parallel thread count based on your requirements.
 
-### [Web application hosted on internal environment] Run the entire test suite in parallel on multiple BrowserStack browser using BrowserStackLocal
-
-In this section, we will run the test cases to test the internally hosted website in parallel on multiple browsers on Browserstack. Refer to the `parallel_local` object in `caps.json` file to change test capabilities for this configuration.
-
-- How to run the test?
-
-  To run the entire test suite in parallel on a single BrowserStack browser using BrowserStackLocal, use the following command:
-
-  Maven:
-  ```sh
-  mvn compile exec:java -P bstack-local-parallel-browsers
-  ```
-
-  Gradle:
-    ```sh
-  gradle bstack-local-parallel-browsers
-  ```
-
-- Output
-
-  This run profile executes the entire test suite on an internally hosted web application on multiple browsers on BrowserStack. Please refer to your [BrowserStack dashboard](https://automate.browserstack.com/) for test results.
-
-- Note: By default, this execution would run maximum 5 test threads in parallel on BrowserStack. Refer to the section ["Configuring the maximum parallel test threads for this repository"](#Configuring-the-maximum-parallel-test-threads-for-this-repository) for updating the parallel thread count based on your requirements.
 
 ## Generating Allure Reports
 
@@ -388,8 +329,6 @@ In this section, we will run the test cases to test the internally hosted websit
 ## Observations
 - To run Cucumber with Junit 5, cucumber-junit-platform-engine library is used and @Cucumber annotation has to be used to mark Junit 5 Tests.
 - To add cucumber specific configurations, properties can be used. Reference: [Configuration Options](https://github.com/cucumber/cucumber-jvm/tree/main/junit-platform-engine#configuration-options)
-- To run Cucumber tests scenarios in parallel, `cucumber.execution.parallel.enabled` should be set to `true`. To restrict the number of parallels being used, `cucumber.execution.parallel.config.fixed.parallelism` should be set to a positive integer value.
-- Running tests in parallel on multiple browsers is not supported by the Cucumber. So, a [custom implementation](src/test/java/com/browserstack/ParallelTest.java) is done as a workaround.
 - [Cucumber with Junit 5 does not support BeforeAll and AfterAll hooks.](https://github.com/cucumber/cucumber-jvm/issues/515)
 
 [comment]: <> (## Open Issues)
