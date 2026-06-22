@@ -20,7 +20,7 @@ dependencies {
     testImplementation("io.cucumber:cucumber-junit-platform-engine:6.9.1")
     testImplementation("io.cucumber:cucumber-picocontainer:6.9.1")
     testImplementation("org.seleniumhq.selenium:selenium-java:3.141.59")
-    testImplementation("org.apache.commons:commons-lang3:3.11")
+    testImplementation("org.apache.commons:commons-lang3:3.18.0")
     testImplementation("com.googlecode.json-simple:json-simple:1.1.1")
 
 }
